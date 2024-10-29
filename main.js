@@ -8,7 +8,7 @@ function searchComputers() {
         loadContent('admin');
     } else if (searchTerm === 'reservar') {
         loadContent('reserve');
-    } else if (searchTerm === 'disponibilidad') {
+    } else if (searchTerm === 'reservar') {
         loadContent('availability');
     } else {
         contentArea.innerHTML = `<h2>No se encontraron resultados para "${searchTerm}"</h2>`;

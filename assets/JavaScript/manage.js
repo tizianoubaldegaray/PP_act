@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Añadir las filas iniciales
     registros.forEach((registro, index) => {
-        agregarFila(registro, "Disponible", divisiones[index % divisiones.length], "En uso");
+        agregarFila(registro, "", divisiones[index % divisiones.length], "");
     });
 
     // Botón para agregar nuevas computadoras
