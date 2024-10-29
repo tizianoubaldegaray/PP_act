@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Computadoras</title>
+    <link rel="stylesheet" href="../CSS/manage.css">
+    <style>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;  
+            align-items: center; 
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        
+    </style>
+</head>
+<body>
+    <section class="admin-section">
+        <button onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" viewBox="0 -960 960 960" style="min-height: 24px; min-width: 24px;" ><path fill="#FFFFFF" d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+        </button>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+        <h1>Administración de Computadoras</h1>
+        <div class="table-container">
+            <table id="computerTable">
+                <thead>
+                    <tr>
+                        <th>Registro</th>
+                        <th>Disponibilidad</th>
+                        <th>Estado</th>
+                        <th>Comentarios</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- JavaScript se encargará de rellenar los datos -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <button id="addComputerBtn" class="floating-btn">+</button>
+    
+    <script src="../JavaScript/manage.js"></script>
+</body>
+</html>

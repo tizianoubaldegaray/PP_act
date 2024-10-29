@@ -1,0 +1,47 @@
+<!DOCTYPE html> <!--alt + b-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Computadoras</title>
+    <link rel="icon" href="images/logo-pc1.ico">
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
+    <style>
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/Logotipo.png" alt="Logo PC" class="logo">
+        </div>
+        <nav>
+            <button onclick="openLoginModal()">Acceder</button>
+            <button class="create-account">Crear Cuenta</button>
+        </nav>
+    </header>
+    <main>
+        <div class="cards-container">
+            <div class="card" onclick="window.location.href='./assets/HTML/manage.html'">
+                <img src="images/admin.png" alt="Administrar Computadoras">
+                <div class="card-content">
+                    <h3>Administrar Computadoras</h3>
+                </div>
+            </div>
+            <div class="card" onclick="window.location.href='availability.html'">
+                <img src="images/disponibilidad.png" alt="Ver Disponibilidad">
+                <div class="card-content">
+                    <h3>Ver Disponibilidad</h3>
+                </div>
+            </div>
+        </div>
+    
+        <div id="contentArea">
+            <!-- Contenido dinámico cargará aquí -->
+        </div>
+    </main>
+</body>
+</html>
