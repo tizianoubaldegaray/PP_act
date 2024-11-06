@@ -18,8 +18,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Función para alternar colores de disponibilidad
+    function toggleAvailability(circle) {
+        const currentStatus = circle.getAttribute("data-status");
+
+        if (currentStatus === "red") {
+            circle.style.backgroundColor = "yellow";
+            circle.setAttribute("data-status", "yellow");
+        } else if (currentStatus === "yellow") {
+            circle.style.backgroundColor = "green";
+            circle.setAttribute("data-status", "green");
+        } else {
+            circle.style.backgroundColor = "red";
+            circle.setAttribute("data-status", "red");
+        }
+    }
+
     // Función para agregar una fila
-    function agregarFila(registro, disponibilidad = "Disponible", estado = "En uso" , comentarios = "tiene el culo roto" , Eliminar ) {
+    function agregarFila(registro, disponibilidad = "", estado = "En uso", comentarios = "Comentario", Eliminar) {
         const row = document.createElement('tr');
 
         // Columna 1: Registro
@@ -27,55 +43,53 @@ document.addEventListener("DOMContentLoaded", function() {
         registroCell.textContent = registro;
         row.appendChild(registroCell);
 
-        // Columna 2: Disponibilidad
+        // Columna 2: Disponibilidad con círculo de colores
         const disponibilidadCell = document.createElement('td');
-        disponibilidadCell.textContent = disponibilidad;
+        const disponibilidadCircle = document.createElement('div');
+        disponibilidadCircle.classList.add('availability-circle');
+        disponibilidadCircle.setAttribute("data-status", "red"); // Estado inicial
+        disponibilidadCircle.style.backgroundColor = "red";
+        disponibilidadCircle.addEventListener('click', function() {
+            toggleAvailability(disponibilidadCircle);
+        });
+    
+        disponibilidadCell.appendChild(disponibilidadCircle);
         row.appendChild(disponibilidadCell);
-
-        // Columna 3: Estado
-        const estadoCell = document.createElement('td');
-        estadoCell.textContent = estado;
-        row.appendChild(estadoCell);
         
         // Columna 4: Comentarios
         const comentariosCell = document.createElement('td');
-        const comentarioInput = document.createElement('textarea'); // Creamos un textarea
-        comentarioInput.rows = 2; // Definimos el tamaño del textarea
+        const comentarioInput = document.createElement('textarea');
+        comentarioInput.rows = 2;
         comentarioInput.cols = 20;
-        comentarioInput.value = comentarios; // Insertamos el comentario por defecto (si hay)
-        comentariosCell.appendChild(comentarioInput); // Lo añadimos a la celda
+        comentarioInput.value = comentarios;
+        comentariosCell.appendChild(comentarioInput);
         row.appendChild(comentariosCell);
         
         // Columna 5: Botón de eliminar
         const eliminarCell = document.createElement('td');
-        eliminarCell.style.display = 'flex'; // Fijamos el ancho de la celda
-        eliminarCell.style.alignItems = 'center'; // Centrar verticalmente
-        eliminarCell.style.justifyContent = 'center'; // Centrar horizontalmente
+        eliminarCell.style.display = 'flex';
+        eliminarCell.style.alignItems = 'center';
+        eliminarCell.style.justifyContent = 'center';
 
         const eliminarBtn = document.createElement('button');
-        eliminarBtn.textContent = '✖'; // Cruz negra como texto
-        eliminarBtn.style.backgroundColor = '#D32F2F'; // Rojo más oscuro
-        eliminarBtn.style.color = 'black'; // Cruz negra
-        eliminarBtn.style.border = 'none'; // Sin borde
-        eliminarBtn.style.padding = '5px 10px'; // Tamaño más pequeño
-        eliminarBtn.style.borderRadius = '50%'; // Hacer el botón redondeado
-        eliminarBtn.style.cursor = 'pointer'; // Cambiar el cursor al pasar sobre el botón
-        eliminarBtn.style.alignItems = 'center'; // Centrar verticalment
-        eliminarBtn.style.justifyContent = 'center'; // Centrar horizontalmente
-        eliminarBtn.style.width = 'flex'; // Fijamos el ancho de la celda
-
+        eliminarBtn.textContent = '✖';
+        eliminarBtn.style.backgroundColor = '#D32F2F';
+        eliminarBtn.style.color = 'black';
+        eliminarBtn.style.border = 'none';
+        eliminarBtn.style.padding = '5px 10px';
+        eliminarBtn.style.borderRadius = '50%';
+        eliminarBtn.style.cursor = 'pointer';
 
         // Evento click para eliminar la fila con confirmación
         eliminarBtn.addEventListener('click', function() {
             const confirmacion = confirm('¿Estás seguro de que deseas eliminar esta computadora?');
             if (confirmacion) {
-                row.remove(); // Eliminar la fila si se confirma
+                row.remove();
             }
         });
 
         eliminarCell.appendChild(eliminarBtn);
         row.appendChild(eliminarCell);
-
 
         tableBody.appendChild(row);
     }
@@ -87,19 +101,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Botón para agregar nuevas computadoras
     const addComputerBtn = document.getElementById("addComputerBtn");
-    let nextLetter = 'C';  // Comienza con la letra C
+    let nextLetter = 'C';
 
     addComputerBtn.addEventListener('click', function() {
         const currentCount = tableBody.rows.length;
         const nextNum = (currentCount % 30) + 1;
         const nextRegistro = `${nextLetter}-${nextNum.toString().padStart(2, '0')}`;
         
-        // Agregar nueva fila
         agregarFila(nextRegistro);
 
-        // Cambiar la letra si se completan 30 registros (de A-01 a E-30)
         if (nextNum === 30) {
-            nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);  // Cambia a la siguiente letra (D, E, etc.)
+            nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
         }
     });
 });
+
